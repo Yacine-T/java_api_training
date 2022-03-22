@@ -1,4 +1,4 @@
-package fr.lernejo.MyHttpServer;
+package fr.lernejo.server;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package fr.lernejo.MyHttpServer;
+package fr.lernejo.server;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
-public class MyHttpServer {
+public class Server {
 
     public void init() throws IOException {
-        int port = 5001;
+        int port = 9876;
         HttpServer server = HttpServer.create(new InetSocketAddress("localhost", port), 0);
         server.setExecutor(Executors.newFixedThreadPool(1));
         server.createContext("/ping", new PingHttpHandler());
