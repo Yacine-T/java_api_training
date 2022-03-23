@@ -7,7 +7,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Client {
-    HttpClient client = HttpClient.newHttpClient();
+    final  HttpClient client = HttpClient.newHttpClient();
+    final int port;
+    public Client(int port)
+    {
+
+        this.port = port;
+    }
 
     public HttpResponse sendRequest(int myPort, String adversaryUrl) throws IOException, InterruptedException {
         HttpRequest requetePost = HttpRequest.newBuilder()

@@ -12,10 +12,8 @@ public class PingHttpHandler implements HttpHandler {
         exchange.sendResponseHeaders(200, "OK".length());
         exchange.getResponseBody().write("OK".getBytes());
         exchange.close();
+
     }
-
-
-
 
 }
 

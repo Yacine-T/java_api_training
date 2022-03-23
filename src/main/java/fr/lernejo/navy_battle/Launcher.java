@@ -9,10 +9,9 @@ import java.net.http.HttpResponse;
 
 public class Launcher {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = new Server();
+        Server server = new Server(9876, "localhost");
         server.init();
-        Client client = new Client();
-        HttpResponse resp = client.sendRequest(Integer.parseInt(args[0]), args[1]);
-        System.out.println(resp);
+        Client client = new Client(8765);
+        HttpResponse resp = client.sendRequest(8765, "http://localhost:9876");
     }
 }
