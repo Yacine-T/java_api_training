@@ -8,6 +8,7 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.File;
 import java.io.IOException;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,12 +23,14 @@ public class StartHttpHandler implements HttpHandler {
         if (exchange.getRequestMethod().equals("POST"))
         {
             isValidBodyPostRequest(exchange);
-            exchange.close();
+            //exchange.close();
         }
         else {
             exchange.sendResponseHeaders(404, "NOT FOUND".length());
-            exchange.getResponseBody().write("NOT FOUND".getBytes());
-            exchange.close();
+            try (OutputStream os = exchange.getResponseBody()) { // (1)
+                os.write("NOT FOUND".getBytes());
+            }
+            //exchange.close();
         }
     }
 
@@ -50,11 +53,15 @@ public class StartHttpHandler implements HttpHandler {
         List<String> keysFromHttpBody = loadJson(exchange);
         if (keysFromFile.equals(keysFromHttpBody)) {
             exchange.sendResponseHeaders(202, "ACCEPTED".length());
-            exchange.getResponseBody().write("ACCEPTED".getBytes());
+            try (OutputStream os = exchange.getResponseBody()) { // (1)
+                os.write("ACCEPTED".getBytes());
+            }
         }
         else {
             exchange.sendResponseHeaders(400, "BAD REQUEST".length());
-            exchange.getResponseBody().write("BAD REQUEST".getBytes());
+            try (OutputStream os = exchange.getResponseBody()) { // (1)
+                os.write("BAD REQUEST".getBytes());
+            }
         }
     }
 }
