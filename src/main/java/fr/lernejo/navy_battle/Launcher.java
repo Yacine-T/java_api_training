@@ -14,10 +14,10 @@ public class Launcher {
         Server s2 = new Server(8765, "localhost");
         s2.init();
         Client c1 = new Client(9876);
-        HttpResponse rep1 = c1.sendRequest(9876, "http://localhost:8765");
+        HttpResponse rep1 = c1.sendPostRequest(9876, "http://localhost:8765");
         System.out.println("Reponse de s2 :" + rep1);
         Client c2 = new Client(8765);
-        HttpResponse rep2 = c2.sendRequest(8765, "http://localhost:9876");
+        HttpResponse rep2 = c2.sendPostRequest(8765, "http://localhost:9876");
         System.out.println("Reponse de s1 :" + rep2);*/
     }
 }

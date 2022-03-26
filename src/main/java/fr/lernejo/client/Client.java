@@ -15,15 +15,38 @@ public class Client {
         this.port = port;
     }
 
-    public HttpResponse sendRequest(int myPort, String adversaryUrl) throws IOException, InterruptedException {
-        HttpRequest requetePost = HttpRequest.newBuilder()
+    public HttpResponse sendPostRequest(int myPort, String adversaryUrl) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(adversaryUrl + "/api/game/start"))
             .setHeader("Accept", "application/json")
             .setHeader("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString("{\"id\":\"1\", \"url\":\"http://localhost:" + myPort + "\", \"message\":\"hello\"}"))
             .build();
 
-            HttpResponse response = this.client.send(requetePost, HttpResponse.BodyHandlers.ofString());
+            HttpResponse response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
             return response;
+    }
+
+    public HttpResponse sendWrongPostRequest(int myPort, String adversaryUrl) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(adversaryUrl + "/api/game/start"))
+            .setHeader("Accept", "application/json")
+            .setHeader("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString("{\"url\":\"http://localhost:" + myPort + "\", \"message\":\"hello\"}"))
+            .build();
+
+        HttpResponse response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
+    }
+
+    public HttpResponse sendGetRequest(int myPort, String adversaryUrl) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(adversaryUrl + "/api/game/start"))
+            .setHeader("Accept", "application/json")
+            .setHeader("Content-Type", "application/json")
+            .GET().build();
+
+        HttpResponse response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
+        return response;
     }
 }

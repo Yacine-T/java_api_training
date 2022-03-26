@@ -23,14 +23,14 @@ public class StartHttpHandler implements HttpHandler {
         if (exchange.getRequestMethod().equals("POST"))
         {
             isValidBodyPostRequest(exchange);
-            //exchange.close();
+            exchange.close();
         }
         else {
             exchange.sendResponseHeaders(404, "NOT FOUND".length());
-            try (OutputStream os = exchange.getResponseBody()) { // (1)
+            try (OutputStream os = exchange.getResponseBody()) {
                 os.write("NOT FOUND".getBytes());
             }
-            //exchange.close();
+            exchange.close();
         }
     }
 
@@ -53,13 +53,13 @@ public class StartHttpHandler implements HttpHandler {
         List<String> keysFromHttpBody = loadJson(exchange);
         if (keysFromFile.equals(keysFromHttpBody)) {
             exchange.sendResponseHeaders(202, "ACCEPTED".length());
-            try (OutputStream os = exchange.getResponseBody()) { // (1)
+            try (OutputStream os = exchange.getResponseBody()) {
                 os.write("ACCEPTED".getBytes());
             }
         }
         else {
             exchange.sendResponseHeaders(400, "BAD REQUEST".length());
-            try (OutputStream os = exchange.getResponseBody()) { // (1)
+            try (OutputStream os = exchange.getResponseBody()) {
                 os.write("BAD REQUEST".getBytes());
             }
         }

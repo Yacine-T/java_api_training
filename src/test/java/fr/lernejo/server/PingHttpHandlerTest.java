@@ -16,7 +16,7 @@ class PingHttpHandlerTest {
         Server server = new Server(9876, "localhost");
         server.init();
         Client client = new Client(8795);
-        HttpResponse resp =  client.sendRequest(8765, "http://localhost:9876/ping");
+        HttpResponse resp =  client.sendPostRequest(8765, "http://localhost:9876/ping");
         Assertions.assertEquals(200, resp.statusCode());
     }
 
