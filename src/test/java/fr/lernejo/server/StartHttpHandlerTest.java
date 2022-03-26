@@ -15,10 +15,10 @@ class StartHttpHandlerTest {
 
     @Test
     public void testStartHttphHandler_WhenHttpMethodIsValidAndBody_ShouldReturnCodeStatus202() throws IOException, InterruptedException {
-        Server server = new Server(9876, "localhost");
+        Server server = new Server(9875, "localhost");
         server.init();
         Client client = new Client(8795);
-        HttpResponse resp =  client.sendPostRequest(8765, "http://localhost:9876/api/game/start");
+        HttpResponse resp =  client.sendPostRequest(8765, "http://localhost:9875/api/game/start");
         Assertions.assertEquals(202, resp.statusCode());
     }
 
