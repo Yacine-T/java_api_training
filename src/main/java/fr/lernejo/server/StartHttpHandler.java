@@ -49,12 +49,13 @@ public class StartHttpHandler implements HttpHandler {
 
 
     public void isValidBodyPostRequest(HttpExchange exchange) throws IOException {
+        String json = "{\"id\":\"1\", \"url\":\"http://localhost:" + exchange.getLocalAddress().getPort() + "\", \"message\":\"hello\"}";
         List<String> keysFromFile = loadJson(null);
         List<String> keysFromHttpBody = loadJson(exchange);
         if (keysFromFile.equals(keysFromHttpBody)) {
-            exchange.sendResponseHeaders(202, "ACCEPTED".length());
+            exchange.sendResponseHeaders(202, json.length());
             try (OutputStream os = exchange.getResponseBody()) {
-                os.write("ACCEPTED".getBytes());
+                os.write(json.getBytes());
             }
         }
         else {
