@@ -4,16 +4,19 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class PingHttpHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        exchange.sendResponseHeaders(200, "OK".length());
-        exchange.getResponseBody().write("OK".getBytes());
-        exchange.close();
+        String body = "Hello";
+        exchange.sendResponseHeaders(200, body.length());
+        try (OutputStream os = exchange.getResponseBody()) { // (1)
+            os.write(body.getBytes());
+        }
+        //exchange.close();
 
     }
 
 }
-
